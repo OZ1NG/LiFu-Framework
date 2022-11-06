@@ -12,14 +12,14 @@
     - 현재 올라간 코드를 사용하고 싶으면 radamsa 라이브러리 필요
 
 ## build & run
-```
+```sh
 make
 
 sh ./run.sh
 ```
 
 ## usage - code
-```
+```c
 // main.cpp
 ...
 #include "common.h"     
