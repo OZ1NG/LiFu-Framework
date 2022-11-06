@@ -39,7 +39,7 @@ void mutator_main(){
 // ================ mutator code end ===================
 
 int main(){
-    // 입력값를 저장할 디렉토리 설정
+    // 입력값를 저장할 디렉토리 설정 // sd는 save data의 준말로 save.h에 미리 정의 되어있음
     sd.create_dir("./Log"); 
 
     // 저장할 입력값 설정
