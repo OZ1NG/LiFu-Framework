@@ -5,14 +5,15 @@ LIB_DIRS = -L/usr/local/lib
 LIBS 	 = -lcurl -lstdc++fs -lradamsa
 SRCS     = $(wildcard *.cpp)
 OBJS     = $(SRCS:.cpp=.o)
-INC		 = -I./
+BIN_DIR  = ./bin
 TARGET   = curl_fuzz
 
 all: $(TARGET)
-	$(CXX) -o $(TARGET) $(OBJS) $(INC) $(LIB_DIRS) $(LIBS) $(CXXFLAGS)
+	mkdir $(BIN_DIR)
+	$(CXX) -o $(BIN_DIR)/$(TARGET) $(OBJS) $(LIB_DIRS) $(LIBS) $(CXXFLAGS)
 
 $(TARGET):
-	$(CXX) -c $(SRCS) $(INC) $(LIB_DIRS) $(LIBS) $(CXXFLAGS)
+	$(CXX) -c $(SRCS) $(LIB_DIRS) $(LIBS) $(CXXFLAGS) 
 
 clean:
-	rm -f $(TARGET) *.o
+	rm -rf $(OBJS) $(BIN_DIR)

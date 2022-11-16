@@ -1,8 +1,6 @@
 // clang++ save.cpp -o save -no-pie -lstdc++fs
 #include "save.h" // 디렉토리 생성 및 디렉토리 확인 등등
 
-Save sd;
-
 // 저장할 데이터 타입, 저장할 데이터 주소, 저장할 데이터 크기
 void Save::append(string data_type, uint64_t data_size, void * data_addr){
     save_data_info tmp;
@@ -26,6 +24,10 @@ void Save::create_dir(string dirname){
 
 // <vector idx>_<type> 형식으로 입력 값이 저장됨.
 void Save::save(){
+    #ifdef DEBUG
+    show(); // test
+    #endif
+
     FILE * fp;
     fs::path save_filepath1;
     fs::path save_filepath2;
@@ -36,10 +38,16 @@ void Save::save(){
 
     // [save input value]
     uint32_t size = this->save_data.size();
+    #ifdef DEBUG
+    cout << "[DEBUG]size:" << size << endl; // test
+    #endif
     for (int i = 0; i < size; i++){
         save_filepath1 = save_i_dir;
         save_filepath2 = to_string(i) + "_" + this->save_data.at(i).type;
         save_filepath1 /= save_filepath2; // "path1 -> "D:\\Lecture\\examples"
+        #ifdef DEBUG
+        cout << "[DEBUG]save_filepath1:" <<  save_filepath1 << endl; // test
+        #endif
         if ((fp = fopen(save_filepath1.c_str(), "w")) == 0) {
             printf("[CRASH-ERROR] Save g_sample_buf Failed : %s open fail.", save_filepath1.c_str());
             continue ;
@@ -77,10 +85,26 @@ fs::path Save::nowtime2path(){
     return result;
 }
 
-Save::Save(){
-    signal(SIGABRT, sigabrt_handler);
+// for test
+void Save::show(){
+    int size = this->save_data.size();
+    for (int i = 0; i < size; i++){
+        cout << "[show]type:" << this->save_data.at(i).type << endl;
+        cout << "[show]size:" <<this->save_data.at(i).size << endl;
+        cout << "[show]addr:" <<this->save_data.at(i).addr << endl;
+        cout << "[show]data:";
+        write(1, this->save_data.at(i).addr, this->save_data.at(i).size);
+        cout << endl;
+    }
 }
 
+// Save::Save(){
+//     signal(SIGABRT, sigabrt_handler);
+// }
+
+Save sd;
+
+// 입력값 저장 모듈은 자식 프로세스 안에서 실행해야함.
 void sigabrt_handler(int signum){
     cout << "[!] Crash! " << endl;
     sd.save();

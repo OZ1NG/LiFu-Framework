@@ -29,8 +29,11 @@ Pmanager::Pmanager(void (*mutator_main)()){
     this->mutator_main = mutator_main;
 }
 
+extern void sigabrt_handler(int signum); // save.cpp에 구현
+
 // 자식 프로세스 생성 및 실행기
 void Pmanager::run(){
+    signal(SIGABRT, sigabrt_handler); // 자식프로세스에 입력값 저장 모듈 등록
     Monitor monitor;
     while(1){
         monitor.update_moniter();

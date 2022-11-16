@@ -23,9 +23,10 @@ public:
     // save_data_info 구조체로 저장하여 관리
     void append(string data_type, uint64_t data_size, void * data_addr); 
     void create_dir(string dirname); // 디렉토리 존재 확인 후 없으면 디렉토리 생성 // save 및 main에서 사용 // main은 Log 디렉토리 체크
+    void show(); // test
     void save();
     void set_input_dirname(string input_dirname);
-    Save();
+    //Save();
 };
 
 extern Save sd; // save data // 전역변수로 무조건 할당되고 sigabrt_handler와 연동되므로 해당 변수에 저장할 데이터 값을 셋팅하면 된다. // save.cpp에서 할당

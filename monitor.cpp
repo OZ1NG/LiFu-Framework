@@ -40,9 +40,9 @@ string Monitor::getruntime(){
     ptm = localtime(&run_time);
  
     // format : MM.DD-hh:mm:ss.uuuuuu
-    string result = to_string(ptm->tm_mon + 1) + "." + 
-                 to_string(ptm->tm_mday) + "-" + 
-                 to_string(ptm->tm_hour) + ":" + 
+    string result = to_string(ptm->tm_mon) + "." + 
+                 to_string(ptm->tm_mday-1) + "-" + 
+                 to_string(ptm->tm_hour-9) + ":" + 
                  to_string(ptm->tm_min) + ":" + 
                  to_string(ptm->tm_sec) + "." +
                  to_string(val.tv_usec);
