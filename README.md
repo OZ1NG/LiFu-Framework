@@ -58,6 +58,7 @@ int main(){
 and build & run
 
 ## mutator example
+> 예시 - LiFu Framework를 활용해 개발한 Curl 대상 뮤테이터
 - 대상 : libcurl - curl_url_set 함수
 - 뮤테이트 방식 : feedback guided fuzzing (with radamsa)
 - 현재 뮤테이터에 대한 코드는 main.cpp에 정의되어 있음.
